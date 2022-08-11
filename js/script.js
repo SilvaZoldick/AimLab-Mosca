@@ -6,13 +6,19 @@ function ajustaTamanhoJogo() {
 }
 
 ajustaTamanhoJogo();
+var vidas = 1;
 
 function spawnarMosca() {
 
-    try {
+    if (document.getElementById('mosquito')) {
         document.getElementById('mosquito').remove();
-    } catch (e) {
-        console.log('Não há nenhum mosquito na tela')
+        if (vidas > 3) {
+            window.location.href = '../Mata%20Mosquito/gameover.html';
+        } else {
+            console.log('v' + vidas);
+            document.getElementById('v' + vidas).src = 'img/coracao_vazio.png';
+            vidas++;
+        }
     }
 
     var posicaoX = Math.floor(Math.random() * largura) - 90;
@@ -30,9 +36,10 @@ function spawnarMosca() {
     mosquito.style.top = posicaoY + 'px';
     mosquito.style.position = 'absolute';
     mosquito.id = 'mosquito';
+    mosquito.onclick = function () {
+        this.remove()
+    }
     document.body.appendChild(mosquito);
-    document.getElementById('mosquito').setAttribute('onclick', 'spawnarMosca()');
-    cont = 1;
 }
 
 function tamanhoAleatorio() {
@@ -56,12 +63,17 @@ function ladoAleatorio() {
             return 'invertido'
     }
 }
-var cont = 0;
+//var cont = 0;
 
-setTimeout(function () { var i = 0; if (i == 0) { return true } else { i = 1; return false } console.log(cont);}, 1000)
+//setTimeout(function () { var i = 0; if (i == 0) { return true } else { i = 1; return false } console.log(cont);}, 1000)
 
-if (true) {
-    spawnarMosca();
-} else {
+//if (true) {
+//    spawnarMosca();
+//} else {
 
+//}
+var botao = document.getElementById('iniciar jogo')
+function iniciar() {
+    setInterval(function () { spawnarMosca() }, 2000);
+    this.remove()
 }
